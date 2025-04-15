@@ -1,26 +1,21 @@
 name: Keep GitHub Streak
-
 on:
   schedule:
-    - cron: "0 7 * * *"
+    - cron: "0 7 * * *" # Tous les jours à 7h00 UTC
   workflow_dispatch:
-
 jobs:
   keep-streak:
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-
       - name: Setup Git
         run: |
           git config user.name "azalluciano"
-          git config user.email "lazaluciano327"
-
+          git config user.email "lazaluciano327@gmail"  # Utilisez votre vraie adresse email
       - name: Do empty commit
         run: |
           git commit --allow-empty -m "🔥 Streak du $(date)"
-          git push https://x-access-token:${GH_TOKEN}@github.com/azalluciano/github-streak-keeper.git
+          git push origin develop  # Ou le nom de votre branche principale
