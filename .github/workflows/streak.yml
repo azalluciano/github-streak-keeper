@@ -1,7 +1,7 @@
 name: Keep GitHub Streak
 on:
   schedule:
-    - cron: "0 7 * * *" # Tous les jours à 7h00
+    - cron: "15 17 * * *" # Tous les jours à 17h15
   push:
     branches:
       - develop
