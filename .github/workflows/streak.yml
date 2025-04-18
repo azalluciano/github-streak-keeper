@@ -1,31 +1,41 @@
 name: Keep GitHub Streak
+
 on:
   schedule:
-    - cron: "15 17 * * *" # Tous les jours à 17h15
+    - cron: "0 14 * * *" # 17h à Madagascar (UTC+3)
   push:
     branches:
       - develop
   workflow_dispatch:
+
 jobs:
   keep-streak:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "20" # ou ta version préférée
+          node-version: "20"
+
       - name: Install dependencies
         run: npm install
+
       - name: Run commit script
         run: node commit.js
+
       - name: Setup Git
         run: |
           git config user.name "azalluciano"
           git config user.email "lazaluciano327@gmail.com"
+
       - name: Push changes
         run: |
           git add .
           git commit -m "🔥 Streak du $(date)" || echo "Aucun changement à valider"
           git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }} HEAD:develop
+
+      - name: Log current date
+        run: date
